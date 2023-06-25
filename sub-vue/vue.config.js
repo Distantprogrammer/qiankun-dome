@@ -19,7 +19,7 @@ module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
   devServer: {
-    port: port,
+    port: process.env.VUE_APP_PORT,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },

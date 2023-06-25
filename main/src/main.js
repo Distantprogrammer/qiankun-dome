@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
+import { registerMicroApps, start } from 'qiankun'
+// import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
 import microApps from './micro-app'
 import 'nprogress/nprogress.css'
 
@@ -51,5 +52,5 @@ registerMicroApps(apps, {
     }
   ]
 })
-setDefaultMountApp('/sub-vue')
+// setDefaultMountApp('/sub-vue')
 start()
