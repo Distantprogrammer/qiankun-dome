@@ -6,7 +6,7 @@
           <el-upload
             class="avatar-uploader"
             :headers="header"
-            action="/api/blade-resource/oss/endpoint/put-file"
+            action="/api/"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"

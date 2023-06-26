@@ -93,7 +93,7 @@ export default {
     optionEditorConfig () {
       const _this = this
       this.editorConfig.MENU_CONF['uploadImage'] = {
-        server: '/api/blade-resource/oss/endpoint/put-file',
+        server: '/api/',
         fieldName: 'file',
         timeout: 50 * 1000, // 50s
         // 自定义增加 http  header
@@ -128,7 +128,7 @@ export default {
         },
       },
         this.editorConfig.MENU_CONF['uploadVideo'] = {
-          fieldName: '/api/blade-resource/oss/endpoint/put-file',
+          fieldName: '/api/',
 
           // 单个文件的最大体积限制，默认为 10M
           maxFileSize: 5 * 1024 * 1024, // 5M
