@@ -52,5 +52,5 @@ registerMicroApps(apps, {
     }
   ]
 })
-// setDefaultMountApp('/sub-vue')
+// setDefaultMountApp('/sub-monaco-editor')
 start()

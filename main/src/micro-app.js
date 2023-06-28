@@ -17,9 +17,9 @@ const microApps = [
     activeRule: '/sub-html'
   },
   {
-    name: 'sub-monacoEditor',
+    name: 'sub-monaco-editor',
     entry: process.env.VUE_APP_SUB_MONACOEDITOR,
-    activeRule: '/sub-monacoEditor'
+    activeRule: '/sub-monaco-editor'
   }
 ]
 
