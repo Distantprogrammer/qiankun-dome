@@ -15,6 +15,11 @@ const microApps = [
     name: 'sub-html',
     entry: process.env.VUE_APP_SUB_HTML,
     activeRule: '/sub-html'
+  },
+  {
+    name: 'sub-monacoEditor',
+    entry: process.env.VUE_APP_SUB_MONACOEDITOR,
+    activeRule: '/sub-monacoEditor'
   }
 ]
 
