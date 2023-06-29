@@ -1,18 +1,19 @@
+<script setup>
+import filecatalog from './fileCatalog/index.vue'
+</script>
+
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div div class="home">
+    <div class="file_catalog">
+      <filecatalog/>
+    </div>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+<style lang="scss" scoped>
+.home{
+  display: flex;
+  
 }
-</script>
+
+</style>
