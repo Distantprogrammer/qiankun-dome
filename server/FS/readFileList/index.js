@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
+const { v4: uuidv4 } = require('uuid');
 
 /** 扩展名白名单 */
 const whiteExt = ['.html', '.json', '.html', '.js'];
@@ -48,12 +49,12 @@ function readFileList (src, filesList) {
     if (ignoreFolder.includes(item)) return;
     let stat = fs.statSync(src + item);
     if (stat.isDirectory()) {
-      // console.log('检测到文件夹：' + src + item);
+      console.log('文件夹：' + src + item);
       //递归读取文件
       readFileList(src + item + "\\", filesList)
     } else {
       if (whiteExt.includes(path.extname(src + item))) {
-        // console.log('检测到白名单文件，路径为：' + src + item);
+        console.log('白名单文件，路径为：' + src + item);
         filesList.push(src + item);
       }
     }
@@ -71,11 +72,16 @@ function getFilesList (src) {
   let FilesList = [];
   readFileList(src, FilesList);
   console.log('文件路径列表生成结束！');
- return buildTree(FilesList)
+  return buildTree(FilesList)
   return FilesList;
 }
+
+/**
+ * 处理数据
+ * @param {String} paths 目录地址
+ */
 function buildTree(paths) {
-  const tree = {};
+  const tree = [];
 
   for (let path of paths) {
     const segments = path.split('\\');
@@ -83,16 +89,51 @@ function buildTree(paths) {
 
     for (let i = 0; i < segments.length; i++) {
       const segment = segments[i];
+      const existingNode = currentNode.find(node => node.label === segment);
 
-      if (!currentNode[segment]) {
-        currentNode[segment] = {};
+      if (existingNode) {
+        currentNode = existingNode.children;
+      } else {
+        const newNode = {
+          label: segment,
+          children: [],
+          id: uuidv4()
+        };
+        currentNode.push(newNode);
+        currentNode = newNode.children;
       }
-
-      currentNode = currentNode[segment];
     }
   }
 
-  return tree;
+  return tree; // [{label: 'B:',children: [ [Object] ],id: 'da278ffd-fce4-4ac0-a152-394bf6a411ee'}]
 }
-console.log(getFilesList(__dirname+'\\'));
+
+exports.getFilesList = getFilesList
+//#region 
+// function buildTree(paths) {
+//   const tree = {};
+
+//   for (let path of paths) {
+//     const segments = path.split('\\');
+//     let currentNode = tree;
+
+//     for (let i = 0; i < segments.length; i++) {
+//       const segment = segments[i];
+//       if (!currentNode[segment]) {
+//         currentNode[segment] = {};
+//       }
+//       if (i==segments.length-1) {
+//         currentNode[segment] = null
+//       }
+//       currentNode = currentNode[segment];
+//     }
+//   }
+
+//   return tree; // B:{tag:{aa:{bb:{}}}}
+// }
+//#endregion
+
+// getFilesList(__dirname+'\\')
+
+// console.log(getFilesList(__dirname+'\\'));
 

@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodejs-websocket": "^1.7.2",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "uuid": "^9.0.0"
   }
 }
