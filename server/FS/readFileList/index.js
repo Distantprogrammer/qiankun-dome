@@ -70,7 +70,8 @@ function getFilesList (src) {
   console.log('开始整理文件路径~');
   startTime = new Date()
   let FilesList = [];
-  readFileList(src, FilesList);
+  const srcEidt = src + '\\'
+  readFileList(srcEidt, FilesList);
   console.log('文件路径列表生成结束！');
   return buildTree(FilesList)
   return FilesList;
@@ -96,9 +97,12 @@ function buildTree(paths) {
       } else {
         const newNode = {
           label: segment,
-          children: [],
-          id: uuidv4()
+          id: uuidv4(),
+          children: []
         };
+        if (newNode.label === '') {
+          continue
+        }
         currentNode.push(newNode);
         currentNode = newNode.children;
       }

@@ -58,16 +58,7 @@ const config = require('./config')
 // 发布者的格式是在配置express-jwt中间件的时候在{secret：加密的秘钥,的后面加上一个algorithms: ["HS256"]}就可以啦
 app.use(jwt({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))
 
-// 导入并注册用户路由模块
-const userRouter = require('./routers/user')
-// 导入并使用用户信息路由模块
-const userinfoRouter = require('./routers/userinfo')
-app.use('/api', userRouter)
-// 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
-app.use('/my', userinfoRouter)
 
-  // // 执行websocket处理连接方法
-require('./schema/websocket')
 // io.createServer(connection => {
 //   console.log('new connection...')
 //   //处理客户端发送过来的消息	
@@ -97,7 +88,5 @@ app.use(function (err, req, res, next) {
   res.cc(err)
 })
 
-app.listen(4200, function () {
-  console.log('http://127.0.0.1:4200');
-})
+module.exports = app
 

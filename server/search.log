@@ -1,0 +1,10 @@
+http://127.0.0.1:4200
+连接成功
+{ readFileList: [Function: getFilesList] }
+开始整理文件路径~
+白名单文件，路径为：B:\\tsg\\qiankun\\qiankun-example\\server\\FS\1.html
+白名单文件，路径为：B:\\tsg\\qiankun\\qiankun-example\\server\\FS\getFileCatalog.js
+白名单文件，路径为：B:\\tsg\\qiankun\\qiankun-example\\server\\FS\index.js
+文件夹：B:\\tsg\\qiankun\\qiankun-example\\server\\FS\readFileList
+白名单文件，路径为：B:\\tsg\\qiankun\\qiankun-example\\server\\FS\readFileList\index.js
+文件路径列表生成结束！
