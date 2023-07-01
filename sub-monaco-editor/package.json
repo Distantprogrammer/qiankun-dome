@@ -9,8 +9,13 @@
     "start": "npm run serve"
   },
   "dependencies": {
+    "@element-plus/icons": "^0.0.11",
     "common": "file:../common",
     "core-js": "^3.8.3",
+    "element-plus": "^2.3.7",
+    "mitt": "^3.0.0",
+    "monaco-editor": "^0.34.1",
+    "monaco-editor-webpack-plugin": "^7.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

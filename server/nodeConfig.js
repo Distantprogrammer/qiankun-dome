@@ -16,7 +16,7 @@ const cors = require('cors')
 // 将 cors 注册为全局中间件
 // app.use(cors())
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204

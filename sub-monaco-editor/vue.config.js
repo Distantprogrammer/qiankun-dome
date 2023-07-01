@@ -1,4 +1,5 @@
 const { name } = require("./package");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 module.exports = {
   publicPath: '/subapp/sub-monaco-editor',
   transpileDependencies: ['common'],
@@ -10,6 +11,7 @@ module.exports = {
     },
   },
   configureWebpack: {
+    plugins: [new MonacoWebpackPlugin()],
     output: {
       library: `${name}-[name]`,
       // library: `vue3App`,

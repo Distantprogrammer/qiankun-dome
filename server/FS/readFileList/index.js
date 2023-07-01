@@ -1,3 +1,4 @@
+const base = require('@hapi/joi/lib/base');
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
@@ -14,7 +15,7 @@ const folderPath = './'; // 必须是/结尾的路径
 // 记录运行耗时
 let startTime = undefined,
   endTime = undefined;
-
+let baseName = ''
 // 输出个检测日志方便查看
 var logPath = folderPath + 'search.log';
 var logFile = fs.createWriteStream(logPath, { flags: 'w' }); // flags: w 代表从头开始写即覆盖原有的， a 代表从末尾开始，接着原有的写
@@ -61,12 +62,14 @@ function readFileList (src, filesList) {
 
   })
 }
-
+let i = 0
 /**
  * 获取文件目录
  * @param {*} src 目录地址
  */
 function getFilesList (src) {
+  const arr = src.split('\\')
+  baseName = arr[arr.length-1]
   console.log('开始整理文件路径~');
   startTime = new Date()
   let FilesList = [];
@@ -74,6 +77,7 @@ function getFilesList (src) {
   readFileList(srcEidt, FilesList);
   console.log('文件路径列表生成结束！');
   return buildTree(FilesList)
+  
   return FilesList;
 }
 
@@ -81,24 +85,33 @@ function getFilesList (src) {
  * 处理数据
  * @param {String} paths 目录地址
  */
+
 function buildTree(paths) {
   const tree = [];
-
+  
   for (let path of paths) {
+    let flag = false
     const segments = path.split('\\');
     let currentNode = tree;
 
     for (let i = 0; i < segments.length; i++) {
       const segment = segments[i];
+      if (baseName==segment) flag = true
+      if (!flag) {
+        continue
+      }
       const existingNode = currentNode.find(node => node.label === segment);
-
       if (existingNode) {
         currentNode = existingNode.children;
       } else {
+       
         const newNode = {
+          flag:flag,
           label: segment,
+          location:path,
           id: uuidv4(),
-          children: []
+          children: [],
+          
         };
         if (newNode.label === '') {
           continue
@@ -108,7 +121,7 @@ function buildTree(paths) {
       }
     }
   }
-
+  
   return tree; // [{label: 'B:',children: [ [Object] ],id: 'da278ffd-fce4-4ac0-a152-394bf6a411ee'}]
 }
 

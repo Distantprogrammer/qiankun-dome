@@ -6,6 +6,10 @@ import { store as commonStore } from 'common'
 import store from './store'
 // import VueRouter from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
+
 let instance = null
 
 function render (props = {}) {
@@ -19,6 +23,7 @@ function render (props = {}) {
   instance = createApp(App)
       .use(store)
       .use(router)
+      .use(ElementPlus)
       .mount(container ? container.querySelector("#app") : "#app");
 }
 
