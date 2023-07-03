@@ -1,4 +1,3 @@
-const base = require('@hapi/joi/lib/base');
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
@@ -48,15 +47,16 @@ function readFileList (src, filesList) {
   let files = fs.readdirSync(src);
   files.forEach(function (item, index) {
     if (ignoreFolder.includes(item)) return;
-    let stat = fs.statSync(src + item);
+    const location = src + '\\' + item
+    let stat = fs.statSync(location);
     if (stat.isDirectory()) {
-      console.log('文件夹：' + src + item);
+      console.log('文件夹：' + location);
       //递归读取文件
-      readFileList(src + item + "\\", filesList)
+      readFileList(location, filesList)
     } else {
-      if (whiteExt.includes(path.extname(src + item))) {
-        console.log('白名单文件，路径为：' + src + item);
-        filesList.push(src + item);
+      if (whiteExt.includes(path.extname(location))) {
+        console.log('白名单文件，路径为：' + location);
+        filesList.push(location);
       }
     }
 
@@ -73,7 +73,7 @@ function getFilesList (src) {
   console.log('开始整理文件路径~');
   startTime = new Date()
   let FilesList = [];
-  const srcEidt = src + '\\'
+  const srcEidt = src 
   readFileList(srcEidt, FilesList);
   console.log('文件路径列表生成结束！');
   return buildTree(FilesList)
@@ -104,9 +104,7 @@ function buildTree(paths) {
       if (existingNode) {
         currentNode = existingNode.children;
       } else {
-       
         const newNode = {
-          flag:flag,
           label: segment,
           location:path,
           id: uuidv4(),
@@ -125,7 +123,7 @@ function buildTree(paths) {
   return tree; // [{label: 'B:',children: [ [Object] ],id: 'da278ffd-fce4-4ac0-a152-394bf6a411ee'}]
 }
 
-exports.getFilesList = getFilesList
+exports.readFileList = getFilesList
 //#region 
 // function buildTree(paths) {
 //   const tree = {};
