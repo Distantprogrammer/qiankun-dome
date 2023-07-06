@@ -1,15 +1,15 @@
 <script setup>
 import { onMounted, ref, toRaw, reactive } from "vue";
 import mitt from '@/utils/mitt.js'
+import request from '@/api/request.js'
 import * as monaco from "monaco-editor";
 const codeContent = ref("");
-mitt.on('handleChange',handleChange)
-
 const editorContainer = ref(null);
 const editor = ref(null);
 const editorTheme = ref("vs-dark");
+const editData = ref('')
 const editorOptions = reactive({
-  value: "aaaaa",
+  value: '',
   theme: editorTheme.value, // 主题
   language: "javascript",
   folding: true, // 是否折叠
@@ -28,6 +28,7 @@ const editorOptions = reactive({
   lineNumbersMinChars: 5, // 行号最小字符   number
   readOnly: false, //是否只读  取值 true | false
 })
+mitt.on('handleChange',handleChange)
 onMounted(() => {
   editor.value = monaco.editor.create(editorContainer.value, { ...editorOptions });
   // // 监听内容变化
@@ -39,13 +40,17 @@ onMounted(() => {
   // });
 });
 // 接收文件目录地址
-function handleChange(location){
-  console.log(location);
+function handleChange(data){
+  editData.value = data
+  console.log(data);
+  request.get('/readFile',{location:data.location}).then(res => {
+    toRaw(editor.value).setValue(res.data)
+   }) 
 }
 // 获取编辑框内容
 function getCodeContext () {
   codeContent.value = toRaw(editor.value).getValue();
-  return console.log(codeContent.value);
+  return codeContent.value
 }
 // 自动格式化代码
 function format () {
@@ -55,10 +60,14 @@ function format () {
 function handleTheme () {
   monaco.editor.setTheme("vs");
 }
-const save = (e) => {
+function save (e) {
+  if (!editData.value.location) return 
   const key = window.event.keyCode ? window.event.keyCode : window.event.which;
   if (key === 83 && e.ctrlKey) {
-    console.log(111);
+    request.post('/writeFile',{
+      location:editData.value.location,
+      text:getCodeContext()
+    })
   }
 }
 </script>

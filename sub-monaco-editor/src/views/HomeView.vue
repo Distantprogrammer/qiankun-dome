@@ -9,7 +9,7 @@ import monacoEditor from './monaco-editor/index.vue'
       <filecatalog/>
     </div>
     <div class="monaco_editor">
-      <!-- <monaco-editor/> -->
+      <monaco-editor/>
     </div>
   </div>
 </template>

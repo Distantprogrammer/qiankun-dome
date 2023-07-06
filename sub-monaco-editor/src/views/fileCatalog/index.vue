@@ -26,7 +26,8 @@ const getFileList = ()=>{
    }) 
 }
 const handleNodeClick = (data, node) => {
-  mitt.emit('handleChange',data.label)
+  if (data.type !== 'file') return
+    mitt.emit('handleChange',data)
 }
 // 前端无法直接获取文件夹的完整路径，前端浏览器环境受到安全限制，无法直接访问文件系统的路径信息。
 // 可以使用桌面应用程序或与操作系统的集成来实现 这样的解决方案通常需要借助Electron、NW.js等桌面应用程序开发框架来实现。
@@ -40,7 +41,7 @@ const handleNodeClick = (data, node) => {
         <template #default="{ node, data }">
           <span>
             <i class="el-icon-folder"></i>
-            <el-icon :size="16" v-if="node.childNodes.length > 0">
+            <el-icon :size="16" v-if="data.type === 'folder'">
               <FolderOpened v-if="node.expanded" />
               <Folder v-else />
             </el-icon>

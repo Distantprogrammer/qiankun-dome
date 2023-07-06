@@ -52,6 +52,7 @@ function readFileList (src, filesList) {
     if (stat.isDirectory()) {
       console.log('文件夹：' + location);
       //递归读取文件
+      filesList.push(location);
       readFileList(location, filesList)
     } else {
       if (whiteExt.includes(path.extname(location))) {
@@ -62,7 +63,6 @@ function readFileList (src, filesList) {
 
   })
 }
-let i = 0
 /**
  * 获取文件目录
  * @param {*} src 目录地址
@@ -75,6 +75,7 @@ function getFilesList (src) {
   let FilesList = [];
   const srcEidt = src 
   readFileList(srcEidt, FilesList);
+  FilesList.unshift(src)
   console.log('文件路径列表生成结束！');
   return buildTree(FilesList)
   
@@ -107,6 +108,7 @@ function buildTree(paths) {
         const newNode = {
           label: segment,
           location:path,
+          type:checkFileType(path),
           id: uuidv4(),
           children: [],
           
@@ -121,6 +123,28 @@ function buildTree(paths) {
   }
   
   return tree; // [{label: 'B:',children: [ [Object] ],id: 'da278ffd-fce4-4ac0-a152-394bf6a411ee'}]
+}
+
+
+/**
+ * 判断是文件还是文件夹
+ * @param {*} path 
+ * @returns 
+ */
+function checkFileType(path) {
+  try {
+    const stats = fs.statSync(path);
+    if (stats.isFile()) {
+      return 'file';
+    } else if (stats.isDirectory()) {
+      return 'folder';
+    } else {
+      return 'unknown';
+    }
+  } catch (err) {
+    console.error('无法获取文件或文件夹的状态信息:', err);
+    return 'unknown';
+  }
 }
 
 exports.readFileList = getFilesList

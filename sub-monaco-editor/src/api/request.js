@@ -1,8 +1,9 @@
 import { ElMessage  } from 'element-plus';
 let baseUrl = "http://127.0.0.1:4200/api";
 
-const request = (url, query,config) => {
+const request = (url,config,query) => {
   let queryUrl = url
+  queryUrl = baseUrl + url
   if (config.method == 'GET') {
       // 将数据拼接到url
       queryUrl = baseUrl + url+ queryParse(query);
@@ -29,7 +30,7 @@ const request = (url, query,config) => {
 
 // GET请求
  const get = (url,query) => {
-  return request(url,query, {method: 'GET'});
+  return request(url, {method: 'GET'},query);
 };
 
 // POST请求
