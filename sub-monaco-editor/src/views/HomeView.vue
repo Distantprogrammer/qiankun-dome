@@ -1,10 +1,12 @@
 <script setup>
+import actionBar from './actionBar/index.vue'
 import filecatalog from './fileCatalog/index.vue'
 import monacoEditor from './monaco-editor/index.vue'
 </script>
 
 <template>
-  <div div class="home">
+  <actionBar/>
+  <div div class="home" v-if="false">
     <div class="file_catalog">
       <filecatalog/>
     </div>

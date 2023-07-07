@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve & cd.. && cd server && npm run serve",
+    "serve": "vue-cli-service serve & npm run api",
+    "api":"cd.. && cd server && npm run server",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "vue-cli-service serve"

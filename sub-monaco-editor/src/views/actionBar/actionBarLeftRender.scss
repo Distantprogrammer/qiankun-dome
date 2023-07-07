@@ -1,0 +1,46 @@
+.left_bar{
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  height: 100%;
+}
+.first_level{
+  position: relative;
+  height: 100%;
+  line-height: 30px;
+  &:hover{
+    .second_box{
+      display: block;
+    }
+  }
+}
+.second_box{
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 28px;
+  left: 0;
+  background-color: #ccc;
+  .second_level{
+    color: #000;
+  }
+  .line_between{
+    border-bottom: 1px solid #fff;
+  }
+}
+.second_level_children{
+  position: relative;
+  &:hover{
+    &>.three_box{
+      display: block;
+    }
+  }
+}
+.three_box{
+  display: none;
+  position: absolute;
+  top: -2px;
+  right: -200px;
+  width: 200px;
+  background-color: #327932;
+}
