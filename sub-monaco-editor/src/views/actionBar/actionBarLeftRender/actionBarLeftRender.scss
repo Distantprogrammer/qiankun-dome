@@ -8,6 +8,7 @@
   position: relative;
   height: 100%;
   line-height: 30px;
+  margin-left: 20px;
   &:hover{
     .second_box{
       display: block;
@@ -23,6 +24,7 @@
   background-color: #ccc;
   .second_level{
     color: #000;
+    
   }
   .line_between{
     border-bottom: 1px solid #fff;

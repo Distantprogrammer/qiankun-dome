@@ -80,8 +80,8 @@ const actionBarLeft = reactive([
     }],
   },
   {
-    name: '文件',
-    keyboard:'F',
+    name: '编辑',
+    keyboard:'E',
     class:"first_level",
     children:[{
       name: null,
