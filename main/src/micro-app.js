@@ -17,6 +17,11 @@ const microApps = [
     activeRule: '/sub-html'
   },
   {
+    name: 'sub-monaco-editor',
+    entry: process.env.VUE_APP_SUB_MONACOEDITOR,
+    activeRule: '/sub-monaco-editor'
+  },
+  {
     name: 'sub-vue-ts-canvans',
     entry: process.env.VUE_APP_SUB_VUE_TS_CANVANS,
     activeRule: '/sub-vue-ts-canvans'
