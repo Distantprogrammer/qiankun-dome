@@ -15,6 +15,11 @@ const microApps = [
     name: 'sub-html',
     entry: process.env.VUE_APP_SUB_HTML,
     activeRule: '/sub-html'
+  },
+  {
+    name: 'sub-vue-ts-canvans',
+    entry: process.env.VUE_APP_SUB_VUE_TS_CANVANS,
+    activeRule: '/sub-vue-ts-canvans'
   }
 ]
 
