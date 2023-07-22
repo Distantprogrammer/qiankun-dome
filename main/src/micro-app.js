@@ -2,28 +2,11 @@ import store from './store'
 
 const microApps = [
   {
-    container: '#sub-react', 
-    name: 'sub-react',
-    entry: process.env.VUE_APP_SUB_REACT,
-    activeRule: '/sub-react'
-  },
-  {
-    container: '#sub-html', 
-    name: 'sub-html',
-    entry: process.env.VUE_APP_SUB_HTML,
-    activeRule: '/sub-html'
-  },
-  {
     container:'#sub-monaco-editor',
     name: 'sub-monaco-editor',
     entry: process.env.VUE_APP_SUB_MONACOEDITOR,
     activeRule: '/sub-monaco-editor'
   },
-  {
-    name: 'sub-vue-ts-canvans',
-    entry: process.env.VUE_APP_SUB_VUE_TS_CANVANS,
-    activeRule: '/sub-vue-ts-canvans'
-  }
 ]
 
 const apps = microApps.map(item => {
