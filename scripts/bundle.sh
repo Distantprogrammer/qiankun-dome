@@ -9,7 +9,7 @@ mkdir ./dist/subapp
 cp -r ./sub-react/build/ ./dist/subapp/sub-react/
 
 # sub-vue子应用
-cp -r ./sub-vue/dist/ ./dist/subapp/sub-vue/
+# cp -r ./sub-vue/dist/ ./dist/subapp/sub-vue/
 
 # sub-html子应用
 cp -r ./sub-html/dist/ ./dist/subapp/sub-html/
