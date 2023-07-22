@@ -26,6 +26,7 @@ const sideBarOptions = reactive({
         e.preventDefault();
         const unmountRef = (event) => {
           if (!e.target.contains(event.target)) {
+            return
             if(renderTarget.value){
                renderTarget.value.__vue_app__.unmount(leftBarRef.value);
                renderTarget.value = null;
@@ -40,6 +41,7 @@ const sideBarOptions = reactive({
         if (e.target.id == "sidebar_box") {
            // 去除上次sideBar的render
           if(renderTarget.value){
+            return
                renderTarget.value.__vue_app__.unmount(leftBarRef.value);
                renderTarget.value = null;
             }

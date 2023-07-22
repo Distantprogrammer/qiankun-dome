@@ -5,90 +5,131 @@
     </a> -->
     <div class="layout-header">
       <ul class="sub-apps">
-        <li v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</li>
+        <li
+          v-for="item in microApps"
+          :class="{ active: item.activeRule === current }"
+          :key="item.name"
+          @click="goto(item)"
+        >
+          {{ item.name }}
+        </li>
       </ul>
       <!-- <div class="userinfo">主应用的state：{{ JSON.stringify(state) }}</div> -->
     </div>
-    <div id="subapp-viewport"></div>
+    <el-dialog
+      :visible.sync="item.dialogVisible"
+      :modal="false"
+      :close-on-click-modal="false"
+      width="50%"
+      v-for="(item) in dialogData"
+      :key="item.id"
+      v-dialogDrag
+      :append-to-body='true'
+    >
+      <div :id="item.id"></div>
+      <!-- <div id="sub-monaco-editor"></div> -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
+    <!-- <div id="sub-html"></div> -->
+    <!-- <div id="sub-react"></div> -->
+    <!-- <div id="sub-monaco-editor"></div> -->
   </div>
 </template>
 
 <script>
-import NProgress from 'nprogress'
-import microApps from './micro-app'
-import store from '@/store'
+import { start, loadMicroApp } from "qiankun";
+import NProgress from "nprogress";
+import microApps from "./micro-app";
+import store from "@/store";
 export default {
-  name: 'App',
-  data () {
+  name: "App",
+  data() {
     return {
       isLoading: true,
       microApps,
-      current: '/sub-vue/'
-    }
+      dialogData: [],
+      current: "/sub-vue/"
+    };
   },
   computed: {
-    state () {
+    state() {
       // 如果只需要取某个命名空间下的state，比如 user ，可以加上参数
       // return store.getGlobalState('user')
       // 返回所有的state则不需添加参数
-      return store.getGlobalState()
+      return store.getGlobalState();
     }
   },
   watch: {
-    isLoading (val) {
+    isLoading(val) {
       if (val) {
-        NProgress.start()
+        NProgress.start();
       } else {
         this.$nextTick(() => {
-          NProgress.done()
-        })
+          NProgress.done();
+        });
       }
     }
   },
   components: {},
   methods: {
-    goto (item) {
-      history.pushState(null, item.activeRule, item.activeRule)
+    goto(item) {
+      new Promise((resolve, reject) => {
+        const obj = {
+          ...item,
+          id: item.name + String(this.dialogData.length),
+          name: item.name + String(this.dialogData.length),
+          container: item.container + String(this.dialogData.length),
+          dialogVisible: true
+        };
+        this.dialogData.push(obj);
+        resolve(obj);
+      }).then(obj => {
+         loadMicroApp(obj);
+      });
+      // history.pushState(null, item.activeRule, item.activeRule)
       // this.current = item.name
     },
-    bindCurrent () {
-      const path = window.location.pathname
+    bindCurrent() {
+      const path = window.location.pathname;
       if (this.microApps.findIndex(item => item.activeRule === path) >= 0) {
-        this.current = path
+        this.current = path;
       }
     },
-    listenRouterChange () {
-      const _wr = function (type) {
-        const orig = history[type]
-        return function () {
-          const rv = orig.apply(this, arguments)
-          const e = new Event(type)
-          e.arguments = arguments
-          window.dispatchEvent(e)
-          return rv
-        }
-      }
-      history.pushState = _wr('pushState')
+    listenRouterChange() {
+      const _wr = function(type) {
+        const orig = history[type];
+        return function() {
+          const rv = orig.apply(this, arguments);
+          const e = new Event(type);
+          e.arguments = arguments;
+          window.dispatchEvent(e);
+          return rv;
+        };
+      };
+      history.pushState = _wr("pushState");
 
-      window.addEventListener('pushState', this.bindCurrent)
-      window.addEventListener('popstate', this.bindCurrent)
+      window.addEventListener("pushState", this.bindCurrent);
+      window.addEventListener("popstate", this.bindCurrent);
 
-      this.$once('hook:beforeDestroy', () => {
-        window.removeEventListener('pushState', this.bindCurrent)
-        window.removeEventListener('popstate', this.bindCurrent)
-      })
+      this.$once("hook:beforeDestroy", () => {
+        window.removeEventListener("pushState", this.bindCurrent);
+        window.removeEventListener("popstate", this.bindCurrent);
+      });
     }
   },
-  created () {
-    this.bindCurrent()
-    NProgress.start()
+  created() {
+    this.bindCurrent();
+    NProgress.start();
   },
-  mounted () {
-    this.listenRouterChange()
-  }
-}
+  mounted() {
+    this.listenRouterChange();
+  },
+};
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

@@ -1,4 +1,5 @@
 module.exports = {
+  lintOnSave: false,
   transpileDependencies: ['common'],
   chainWebpack: config => {
     config.plugin('html')
