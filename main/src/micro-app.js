@@ -11,7 +11,6 @@ const microApps = [
 
 const apps = microApps.map(item => {
   return {
-    // container: '#subapp-viewport', // 子应用挂载的div
     ...item,
     props: {
       routerBase: item.activeRule, // 下发基础路由
