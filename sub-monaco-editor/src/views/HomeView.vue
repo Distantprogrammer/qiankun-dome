@@ -6,10 +6,10 @@ import monacoEditor from './monaco-editor/index.vue'
 </script>
 
 <template>
-  <!-- <actionBar/> -->
+  <actionBar/>
   <div div class="home" v-if="true">
     <div class="file_catalog">
-      <sidebar/>
+      <!-- <sidebar/> -->
       <!-- <filecatalog/> -->
     </div>
     <div class="monaco_editor">

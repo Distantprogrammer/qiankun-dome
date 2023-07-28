@@ -24,6 +24,7 @@ const sideBarOptions = reactive({
       dblclick: () => {},
       contextmenu: (e) => {
         e.preventDefault();
+        // 销毁元素
         const unmountRef = (event) => {
           if (!e.target.contains(event.target)) {
             if(renderTarget.value){
@@ -44,6 +45,7 @@ const sideBarOptions = reactive({
                renderTarget.value = null;
             }
           createApp(render).mount(e.target);
+          // 记录上次挂载的元素方便销毁
            renderTarget.value = e.target
         }
       },

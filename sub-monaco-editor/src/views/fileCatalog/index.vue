@@ -40,7 +40,7 @@ const handleNodeClick = (data, node) => {
       <el-tree :data="treeData.data" indent="5" :props="defaultProps" @node-click="handleNodeClick">
         <template #default="{ node, data }">
           <span>
-            <i class="el-icon-folder"></i>
+            <!-- <i class="el-icon-folder"></i> -->
             <el-icon :size="16" v-if="data.type === 'folder'">
               <FolderOpened v-if="node.expanded" />
               <Folder v-else />
