@@ -1,5 +1,15 @@
+<script setup>
+import { ref } from 'vue';
+const width = ref(100)
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <router-view/>
 </template>
+
+<style lang="scss">
+#app {
+  width: v-bind(width);
+  height: 100vh;
+  overflow: hidden;
+}
+</style>

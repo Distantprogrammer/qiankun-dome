@@ -111,7 +111,7 @@ function buildTree(paths) {
           type:checkFileType(path),
           id: uuidv4(),
           children: [],
-          
+          leaf:true
         };
         if (newNode.label === '') {
           continue

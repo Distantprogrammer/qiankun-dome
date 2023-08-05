@@ -28,14 +28,39 @@ const sideBarOptions = reactive({
       dblclick: () => {},
       contextmenu: (e) => {
         e.preventDefault();
-        const unmountDom = (event)=>{
+        // console.log(store);
+        document.onclick = function (event){
           store.commit('unmountDom',{e,event})
         }
-        document.onclick = unmountDom
-        document.oncontextmenu = unmountDom
+        document.oncontextmenu =function (event){
+          store.commit('unmountDom',{e,event})
+        }
+        // 销毁元素
+        // const unmountRef = (event) => {
+        //   if (!e.target.contains(event.target)) {
+        //     if(renderTarget.value){
+        //        renderTarget.value.__vue_app__.unmount(leftBarRef.value);
+        //        renderTarget.value = null;
+        //     }
+        //     document.onclick = null;
+        //     document.oncontextmenu = null
+        //   }
+        // };
+        // document.onclick = unmountRef
+        // document.oncontextmenu = unmountRef
+
         if (e.target.id == "sidebar_box") {
+           // 去除上次sideBar的render
+          //  store.commit('unmountDom',true)
+          //  const renderTarget = store.state.render.renderTarget
+          // if(renderTarget){
+          //   debugger
+          //      renderTarget.__vue_app__.unmount();
+          //     //  renderTarget = null;
+          //   }
           createApp(render).mount(e.target);
           // 记录上次挂载的元素方便销毁
+          //  renderTarget.value = e.target
           setTimeout(()=>{ store.commit('setRenderTarget',e.target)})
         }
       },
