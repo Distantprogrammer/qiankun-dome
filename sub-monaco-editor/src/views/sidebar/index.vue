@@ -1,7 +1,6 @@
 <script setup>
 import { h, reactive, ref, createApp } from "vue";
 import { useStore } from "vuex";
-// import store from 'vuex'
 const store = useStore()
 const sideBarIndex = ref(0);
 const leftBarRef = ref(null);
@@ -23,13 +22,13 @@ const sideBarOptions = reactive({
     return {
       click: () => {
         sideBarIndex.value = index;
-        
       },
       dblclick: () => {},
       contextmenu: (e) => {
+        const eventCurrentTarget = e.currentTarget
         e.preventDefault();
         const unmountDom = (event)=>{
-          store.commit('unmountDom',{e,event})
+          store.commit('unmountDom',{eventCurrentTarget,event})
         }
         document.onclick = unmountDom
         document.oncontextmenu = unmountDom

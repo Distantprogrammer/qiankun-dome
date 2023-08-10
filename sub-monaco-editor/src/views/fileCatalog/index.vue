@@ -14,16 +14,20 @@ onBeforeMount(()=>{
   getFileList()
 })
 onMounted(() => {
-  // document.getElementsByClassName(  "el-upload__input"  )[0].webkitdirectory = true; 
+  
 })
 //  获取目录列表
-const getFileList = ()=>{
+const getFileList = (location)=>{
   const query = {
     location:"B:\\tsg\\qiankun\\qiankun-example\\server"
+    // location:location
   }
   request.get('/readFileList',query).then(res => {
     treeData.data = res.data
    }) 
+//  return request.get('/readFileList',query).then(res => {
+//     return res.data
+//    }) 
 }
 const handleNodeClick = (data, node) => {
   if (data.type !== 'file') return
@@ -31,13 +35,22 @@ const handleNodeClick = (data, node) => {
 }
 // 前端无法直接获取文件夹的完整路径，前端浏览器环境受到安全限制，无法直接访问文件系统的路径信息。
 // 可以使用桌面应用程序或与操作系统的集成来实现 这样的解决方案通常需要借助Electron、NW.js等桌面应用程序开发框架来实现。
-
+const loadNode =async (node, resolve) => {
+  // console.log(node);
+  // if (node.level === 0) {
+  //  const res = await getFileList("B:\\tsg\\qiankun\\qiankun-example\\server")
+  //  return resolve(res)
+  // }
+  // if (node.level > 1) return resolve([])
+  // // const res = await getFileList(node.data.location)
+  // return resolve(node.data.children)
+}
 </script>
 
 <template>
   <div  class="file_catalog_box">
     <div class="file_catalog">
-      <el-tree :data="treeData.data" indent="5" :props="defaultProps" @node-click="handleNodeClick">
+      <el-tree :data="treeData.data" :indent="5" :props="defaultProps" @node-click="handleNodeClick" :load="loadNode" :lazy="false">
         <template #default="{ node, data }">
           <span>
             <!-- <i class="el-icon-folder"></i> -->
@@ -107,6 +120,11 @@ const handleNodeClick = (data, node) => {
     // .el-tree-node__expand-icon {
     //   // display: none;
     // }
+  }
+  
+  // 解决无children的子级也会出现下拉箭头
+  .el-tree-node__expand-icon.is-leaf {
+	  visibility: hidden;
   }
 }
 </style>
