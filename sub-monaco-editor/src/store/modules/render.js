@@ -24,32 +24,14 @@ const render = {
       const eDom = e.target || e
       // 防止相同兄弟元素不销毁 原因大概是class都一样
       if ((eDom && eDom.id) == state.renderTarget?.id) {
-        // 判断是不是 h render(renderNode(data), event)渲染方式
-        if (state.renderTarget.__vue_app__) {
-          debugger
-          state.renderTarget.__vue_app__.unmount();
-          state.renderTarget = null;
-        }
-        else{
           renderFn(null,state.renderTarget)
           state.renderTarget = null;
-        }
-        return
+          return
       }
-      
       if (!eDom.contains(event.target)) {
-        // 判断是 h 还是 render(renderNode(data), event)渲染方式 h方式的渲染有__vue_app__ render的没有
         if(state.renderTarget){
-          if (state.renderTarget.__vue_app__) {
-            debugger
-            state.renderTarget.__vue_app__.unmount();
-            renderFn(null,state.renderTarget)
-            state.renderTarget = null;
-          }
-          else{
-            renderFn(null,state.renderTarget)
-            state.renderTarget = null;
-          }
+          renderFn(null,state.renderTarget)
+          state.renderTarget = null;
           return
         }
         document.onclick = null;

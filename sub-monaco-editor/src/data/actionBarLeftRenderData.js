@@ -1,6 +1,7 @@
 import { h, reactive, render } from 'vue';
 import { renderNode } from '@/utils/render.js'
 import store from "@/store/index";
+import { renderNode } from '@/utils/render.js'
 export const actionBarLeftRenderData = [
   {
     propsOption: function () {
@@ -171,7 +172,7 @@ export const actionBarLeftRenderData = [
     }
   },
 ]
-
+// 手动创建子元素
 function createElemet (e, data) {
   // 不可直接e.currentTarget传下去 需要先接收在传下去，应为js机制会在事件处理完成后某些参数会变null console.log()也会打印为null
   let event = e.currentTarget || e.target.parentNode
@@ -180,4 +181,14 @@ function createElemet (e, data) {
     render(renderNode(data), event)
     store.commit('setRenderTarget', event)
   })
+}
+// 初始渲染元素
+export function render() {
+  return h(
+    'div',
+    {
+      class: 'left_bar'
+    },
+    actionBarLeftRenderData.map(renderNode)
+  );
 }
