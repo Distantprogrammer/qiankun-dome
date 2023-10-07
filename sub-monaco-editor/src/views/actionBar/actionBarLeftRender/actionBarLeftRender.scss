@@ -30,6 +30,7 @@
   border: 1px solid #303030;
   .second_level,
   .three_level{
+    position: relative;
     display: flex;
     white-space: nowrap;
     word-wrap: normal;
@@ -68,7 +69,8 @@
 
 }
 .three_box{
-  display: none;
+  /*display: none;*/
+  display: block;
   position: absolute;
   top: -4px;
   right: -304px;

@@ -21,6 +21,10 @@ const render = {
      */
     unmountDom(state,payload){
       const {eventCurrentTarget:e,event} = payload
+      // 避免点击字节点就销毁
+      if (state.renderTarget && state.renderTarget.contains(event.target)) {
+        return false
+      }
       const eDom = e.target || e
       // 防止相同兄弟元素不销毁 原因大概是class都一样
       if ((eDom && eDom.id) == state.renderTarget?.id) {
@@ -43,6 +47,9 @@ const render = {
   actions: {
   },
 }
+
+
+
 
 export default render
 
