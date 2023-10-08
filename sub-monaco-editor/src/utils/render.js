@@ -43,8 +43,9 @@ export const renderNode = (node) => {
 
 
 // 手动创建子元素
-export function createElemet (e, data) {
-  const renderTarget = store.state.render.renderTarget
+export function createElemet (e, that) {
+  const index =  store.state.render.renderTarget.findIndex(item=>item.id == that.id)
+  const target = store.state.render.renderTarget[index]
   // 判断是否是动态插入的元素
   // if (e.target.parentNode.contains(e.target)) {
   //   console.log(e.target.parentNode.contains(e.target));
@@ -58,12 +59,15 @@ export function createElemet (e, data) {
   // }
   // render(h('p', {}, '动态插入的元素'),event)
   setTimeout(() => {
-    render(renderNode(data), event)
+    render(renderNode(that.createChildren), event)
     // 只需要存父元素 子元素需要单独存  点击的是自己的子元素那就要判断同级子元素销毁与显示
-     if (renderTarget && renderTarget.contains(e.target)) {
+     if (target?.renderTarget && target.renderTarget.contains(e.target)) {
         return false
      }
-    store.commit('setRenderTarget', event)
+    store.commit('setRenderTarget', {
+      renderTarget: event,
+      id:that.id,
+    })
   })
 }
 /**
@@ -119,14 +123,26 @@ export function renderInit (element = 'div', className = 'bar', data = []) {
 export function eventFun (e,that) {
   const eventCurrentTarget = e.currentTarget
   e.preventDefault();
-  // e.stopPropagation()
+  e.stopPropagation()
+  console.log(that);
   if (!that.createChildren) {
     return
   }
   const unmountDom = (event) => {
-    store.commit('unmountDom', { eventCurrentTarget, event })
+    store.commit('unmountDom', { eventCurrentTarget, event ,that})
   }
-  document.onclick = unmountDom
-  document.oncontextmenu = unmountDom
-  createElemet(e, that.createChildren)
+  // 通过id来判断是不是同级的节点点击
+  // console.log(store.state.render?.renderTarget);
+  const index =  store.state.render?.renderTarget.findIndex(item=>{
+    return item.id == that.id
+  })
+  // console.log(index);
+  if(index !== -1){
+    unmountDom(store.state.render.renderTarget[index].renderTarget)
+  }
+  // document.onclick = unmountDom
+  // document.oncontextmenu = unmountDom
+  createElemet(e, that)
+  document.onclick = (docE)=>{store.commit('clearRenderTarget',docE)}
+  document.oncontextmenu = (docE)=>{store.commit('clearRenderTarget',docE)}
 }

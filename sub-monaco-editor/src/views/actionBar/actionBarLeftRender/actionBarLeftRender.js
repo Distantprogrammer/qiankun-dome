@@ -2,6 +2,8 @@ import { renderNode,createElemet,eventFun } from '@/utils/render.js'
 import store from "@/store/index";
 export const actionBarLeftRenderData = [
   {
+    // 用来记录元素级别 同级别元素id使用一样即可，方便销毁
+    id:1,
     propsOption: function () {
       const that = this
       return {
@@ -40,6 +42,7 @@ export const actionBarLeftRenderData = [
       },
       children: [
         {
+          id:2,
           propsOption: function () {
             const that = this
             return {
@@ -114,6 +117,7 @@ export const actionBarLeftRenderData = [
           }
         },
         {
+          id:2,
           propsOption: function () {
             const that = this
             return {
@@ -127,13 +131,13 @@ export const actionBarLeftRenderData = [
               propsOption: {
                 class: "second_level_title",
               },
-              content: '新建文本...',
+              content: '新建文本文件',
             },
             {
               propsOption: {
                 class: "second_level_shortcut",
               },
-              content: 'Ctrl+Alt+Windows+N',
+              content: 'Ctrl+N',
             },
           ],
           createChildren: {
@@ -155,7 +159,7 @@ export const actionBarLeftRenderData = [
                     propsOption: {
                       class: "three_level_title",
                     },
-                    content: '新建文本文件2222',
+                    content: '新建文本文件',
                   },
                   {
                     propsOption: {
@@ -166,21 +170,26 @@ export const actionBarLeftRenderData = [
                 ]
               },
               {
-                propsOption: {
-                  class: "three_level",
+                propsOption: function () {
+                  const that = this
+                  return {
+                    class: "three_level",
+                    id: 'three_level',
+                    onclick:(e)=>{ eventFun(e,that) }
+                  }
                 },
                 children: [
                   {
                     propsOption: {
                       class: "three_level_title",
                     },
-                    content: '新建文本...2222',
+                    content: '新建文本文件',
                   },
                   {
                     propsOption: {
                       class: "three_level_shortcut",
                     },
-                    content: 'Ctrl+Alt+Windows+N',
+                    content: 'Ctrl+N',
                   },
                 ]
               },
@@ -191,21 +200,24 @@ export const actionBarLeftRenderData = [
     }
   },
   {
+    // 用来记录元素级别 同级别元素id使用一样即可，方便销毁
+    id:1,
     propsOption: function () {
       const that = this
       return {
         class: "first_level",
         id: 'first_level',
-        onclick: (e) => {
-          const eventCurrentTarget = e.currentTarget
-          e.preventDefault();
-          const unmountDom = (event) => {
-            store.commit('unmountDom', { eventCurrentTarget, event })
-          }
-          document.onclick = unmountDom
-          document.oncontextmenu = unmountDom
-           createElemet(e, that.createChildren)
-        },
+        onclick:(e)=>{ eventFun(e,that) }
+        // const vnode = h('button', {
+        //   // 等价于 v-on:click.stop.prevent
+        //   onClick: withModifiers(() => {
+        //     // ...
+        //   }, ['stop', 'prevent'])
+        // })
+        // 修饰符 如 修饰符:true
+        // nativeModifiers:{
+
+        // }
       }
     },
     children: [
@@ -228,8 +240,14 @@ export const actionBarLeftRenderData = [
       },
       children: [
         {
-          propsOption: {
-            class: "second_level",
+          id:2,
+          propsOption: function () {
+            const that = this
+            return {
+              class: "second_level",
+              id: 'second_level',
+              onclick:(e)=>{ eventFun(e,that) }
+            }
           },
           children: [
             {
@@ -244,26 +262,132 @@ export const actionBarLeftRenderData = [
               },
               content: 'Ctrl+N',
             },
-          ]
+          ],
+          createChildren: {
+            propsOption: {
+              class: "three_box",
+            },
+            children: [
+              {
+                propsOption: function () {
+                  const that = this
+                  return {
+                    class: "three_level",
+                    id: 'three_level',
+                    onclick:(e)=>{ eventFun(e,that) }
+                  }
+                },
+                children: [
+                  {
+                    propsOption: {
+                      class: "three_level_title",
+                    },
+                    content: '新建文本文件',
+                  },
+                  {
+                    propsOption: {
+                      class: "three_level_shortcut",
+                    },
+                    content: 'Ctrl+N',
+                  },
+                ]
+              },
+              {
+                propsOption: {
+                  class: "second_level",
+                },
+                children: [
+                  {
+                    propsOption: {
+                      class: "second_level_title",
+                    },
+                    content: '新建文本...',
+                  },
+                  {
+                    propsOption: {
+                      class: "second_level_shortcut",
+                    },
+                    content: 'Ctrl+Alt+Windows+N',
+                  },
+                ]
+              },
+            ]
+          }
         },
         {
-          propsOption: {
-            class: "second_level",
+          id:2,
+          propsOption: function () {
+            const that = this
+            return {
+              class: "second_level",
+              id: 'second_level',
+              onclick:(e)=>{ eventFun(e,that) }
+            }
           },
           children: [
             {
               propsOption: {
                 class: "second_level_title",
               },
-              content: '新建文本...',
+              content: '新建文本文件',
             },
             {
               propsOption: {
                 class: "second_level_shortcut",
               },
-              content: 'Ctrl+Alt+Windows+N',
+              content: 'Ctrl+N',
             },
-          ]
+          ],
+          createChildren: {
+            propsOption: {
+              class: "three_box",
+            },
+            children: [
+              {
+                propsOption: function () {
+                  const that = this
+                  return {
+                    class: "three_level",
+                    id: 'three_level',
+                    onclick:(e)=>{ eventFun(e,that) }
+                  }
+                },
+                children: [
+                  {
+                    propsOption: {
+                      class: "three_level_title",
+                    },
+                    content: '新建文本文件',
+                  },
+                  {
+                    propsOption: {
+                      class: "three_level_shortcut",
+                    },
+                    content: 'Ctrl+N',
+                  },
+                ]
+              },
+              {
+                propsOption: {
+                  class: "second_level",
+                },
+                children: [
+                  {
+                    propsOption: {
+                      class: "second_level_title",
+                    },
+                    content: '新建文本...',
+                  },
+                  {
+                    propsOption: {
+                      class: "second_level_shortcut",
+                    },
+                    content: 'Ctrl+Alt+Windows+N',
+                  },
+                ]
+              },
+            ]
+          }
         },
       ]
     }
