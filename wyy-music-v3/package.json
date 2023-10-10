@@ -1,0 +1,27 @@
+{
+  "name": "wyy-music-v3",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons": "^0.0.11",
+    "axios": "^1.4.0",
+    "element-plus": "^2.3.4",
+    "eslint": "^8.40.0",
+    "eslint-plugin-vue": "^9.13.0",
+    "pinia": "^2.1.1",
+    "vue": "^3.2.47",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.1.0",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0",
+    "vite": "^4.3.2"
+  }
+}

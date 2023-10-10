@@ -1,0 +1,120 @@
+
+/* 把我们所有标签的内外边距清零 */
+
+* {
+  margin: 0;
+  padding: 0;
+  /* color: #fff; */
+  /* css3盒子模型 */
+  box-sizing: border-box;
+  cursor: pointer;
+  -moz-user-select: none; /* Firefox私有属性 */
+  -webkit-user-select: none; /* WebKit内核私有属性 */
+  -ms-user-select: none; /* IE私有属性(IE10及以后) */
+  -khtml-user-select: none; /* KHTML内核私有属性 */
+  -o-user-select: none; /* Opera私有属性 */
+  user-select: none; /* CSS3属性 */
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  overflow:hidden;
+  /* background-color: #2b2b2b; */
+}
+/* em 和 i 斜体的文字不倾斜 */
+
+b,
+em,
+i {
+  font-style: normal;
+}
+
+/* 去掉li 的小圆点 */
+
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+img {
+  /* border 0 照顾低版本浏览器 如果 图片外面包含了链接会有边框的问题 */
+  border: 0;
+  /* 取消图片底侧有空白缝隙的问题 */
+  vertical-align: middle;
+}
+
+button {
+  /* 当我们鼠标经过button 按钮的时候，鼠标变成小手 */
+  cursor: pointer;
+}
+input::input-placeholder{
+color: rgb(189, 178, 178);
+}
+input::-webkit-input-placeholder{
+color: rgb(204, 180, 180);
+}
+input::-moz-placeholder{  
+color: #fff;
+}
+input:-moz-placeholder{  
+color: #fff;
+}
+input:-ms-input-placeholder{ 
+color: #fff;
+}
+
+a {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* a:hover {
+    color: #c81623
+} */
+
+button,
+input {
+  /* "\5B8B\4F53" 就是宋体的意思 这样浏览器兼容性比较好 */
+  font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB,
+    '\5B8B\4F53', sans-serif;
+  /* 默认有灰色边框我们需要手动去掉 */
+  border: 0;
+  outline: none;
+  /* resize: none; */
+}
+
+body {
+  /* CSS3 抗锯齿形 让文字显示的更加清晰 */
+  -webkit-font-smoothing: antialiased;
+  font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB,
+    '\5B8B\4F53', sans-serif;
+  /* color: #666 */
+}
+
+/* 清除浮动 */
+
+.clearfix:after {
+  visibility: hidden;
+  clear: both;
+  display: block;
+  content: '.';
+  height: 0;
+}
+
+.clearfix {
+  *zoom: 1;
+}
