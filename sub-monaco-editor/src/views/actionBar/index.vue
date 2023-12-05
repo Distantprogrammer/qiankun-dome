@@ -1,23 +1,7 @@
 <script setup>
 import { reactive, onMounted, nextTick, createApp,defineComponent,createVNode } from 'vue'
 import { actionBarLeftRenderData } from './actionBarLeftRender/actionBarLeftRender.js'
-import { renderInit } from '@/utils/render.js'
-// const RenderTest = defineComponent({
-//   render(){
-//   // 参数1：元素名字符串； 参数2：元素属性； 元素子节点，支持createVNode嵌套
-//     return createVNode("div", {class: "text"}, "render-text")
-//   }
-// });
-onMounted(async() => {
-  // 遇到问题解决地址https://blog.csdn.net/qq_34966814/article/details/122122314
-  const renderData = renderInit('div', 'left_bar',actionBarLeftRenderData)
-  // 1. createApp(renderData).mount('#actionBar_left')
-  const dom$ = document.querySelector('#actionBar_left')
-  const app = createApp(renderData)
-  nextTick(() => {
-    app.mount(dom$)
-  })
-})
+
 </script>
 
 <template>
