@@ -41,6 +41,8 @@ onMounted(async() => {
   display: flex;
   height: 30px;
   padding: 5px 18px;
+  position: relative;
+  z-index: 10;
 
   .logo_img {
     height: 100%;

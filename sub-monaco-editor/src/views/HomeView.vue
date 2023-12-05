@@ -10,10 +10,10 @@ import monacoEditor from './monaco-editor/index.vue'
   <div div class="home" v-if="true">
     <div class="file_catalog">
       <sidebar/>
-      <!-- <filecatalog/> -->
+      <filecatalog/>
     </div>
     <div class="monaco_editor">
-      <!-- <monaco-editor/> -->
+      <monaco-editor/>
     </div>
   </div>
 </template>
